@@ -35,9 +35,7 @@ def action(elem, doc):
         and "python" in elem.classes
         and not "python-output" in elem.classes
     ):
-        sprint(elem.classes)
         eval_output = exec_env(elem.text)
-        sprint(f"888, {elem.next.text} {type(elem.next)} {elem.next.classes} ")
         return [elem, elements.CodeBlock(eval_output, classes=["python-output"])]
     # remove previously generated output
     elif isinstance(elem, pf.CodeBlock) and "python-output" in elem.classes:
