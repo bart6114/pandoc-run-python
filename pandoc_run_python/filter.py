@@ -33,6 +33,7 @@ def action(elem, doc):
     if (
         isinstance(elem, pf.CodeBlock)
         and "python" in elem.classes
+        and "run" in elem.classes
         and not "python-output" in elem.classes
     ):
         eval_output = exec_env(elem.text)
