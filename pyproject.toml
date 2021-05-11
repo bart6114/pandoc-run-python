@@ -14,7 +14,7 @@ black = "^21.5b1"
 pytest = "^6.2.4"
 
 [tool.poetry.scripts]
-pandoc-run-python = "pandoc_run_python.pandoc_run_python:main"
+pandoc-run-python = "pandoc_run_python.filter:main"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

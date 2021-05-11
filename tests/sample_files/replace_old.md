@@ -7,8 +7,9 @@ print("Hello World")
 for x in [1,2, 3]:
     print(x)
 ```
+
 ``` {.python-output}
-Hello World
+WILL BE REPLACED
 1
 2
 3
