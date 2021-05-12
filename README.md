@@ -1,4 +1,6 @@
-[![GitHub tag](https://img.shields.io/github/tag/bart6114/pandoc-run-python.svg)](https://github/tag/bart6114/tags)
+![PyPI](https://img.shields.io/pypi/v/pandoc-run-python)
+![CICD](https://github.com/Bart6114/pandoc-run-python/actions/workflows/publish.yml/badge.svg)
+
 
 # pandoc-run-python
 
