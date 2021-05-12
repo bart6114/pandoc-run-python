@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pandoc-run-python"
-version = "0.1.0"
+version = "0.0.0"
 description = "run python code blocks in markdown code"
 authors = ["Bart Smeets"]
 license = "MIT"
@@ -15,9 +15,12 @@ pytest-cov = "^2.11.1"
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.4"
 
+[tool.poetry-dynamic-versioning]
+enable = true
+
 [tool.poetry.scripts]
 pandoc-run-python = "pandoc_run_python.filter:main"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
 build-backend = "poetry.core.masonry.api"
