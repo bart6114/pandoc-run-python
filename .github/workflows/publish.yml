@@ -37,11 +37,13 @@ jobs:
     env:
       POETRY_VERSION: 1.1.6
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
       - name: Set up Python 3.7
         uses: actions/setup-python@v1
         with:
           python-version: 3.8
+      - name: echo tag
+        run: echo ${{ github.ref }}
       - name: install pandoc
         run: >
           wget https://github.com/jgm/pandoc/releases/download/2.13/pandoc-2.13-1-amd64.deb &&
