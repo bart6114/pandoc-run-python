@@ -1,3 +1,5 @@
+[![GitHub tag](https://img.shields.io/github/tag/bart6114/pandoc-run-python.svg)](https://github/tag/bart6114/tags)
+
 # pandoc-run-python
 
 This is a [Pandoc filter](https://pandoc.org/filters.html)! More specifically it is a filter that allows you to run Python code blocks in your markdown. It exists because I enjoy literate coding too much.
