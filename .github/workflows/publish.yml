@@ -32,7 +32,7 @@ jobs:
 
   test-n-build:
     needs: tag-new-version
-    name: Build and publish Python 🐍 distributions 📦 to PyPI and TestPyPI
+    name: Test & build package
     runs-on: ubuntu-18.04
     env:
       POETRY_VERSION: 1.1.6
@@ -66,12 +66,14 @@ jobs:
 
   publish:
     needs: test-n-build
+    name: Build and publish Python 🐍 distributions 📦 to PyPI and TestPyPI
     runs-on: ubuntu-18.04
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/download-artifact@v2
         with:
           name: dist
+          path: dist/
       - name: Publish distribution 📦 to Test PyPI
         uses: pypa/gh-action-pypi-publish@master
         with:
