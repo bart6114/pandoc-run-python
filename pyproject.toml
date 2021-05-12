@@ -17,6 +17,7 @@ pytest = "^6.2.4"
 
 [tool.poetry-dynamic-versioning]
 enable = true
+pattern = "^(?P<base>\\d+\\.\\d+\\.\\d+)"
 
 [tool.poetry.scripts]
 pandoc-run-python = "pandoc_run_python.filter:main"
