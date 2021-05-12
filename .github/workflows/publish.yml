@@ -18,7 +18,10 @@ jobs:
       with:
         python-version: 3.8
     - name: install pandoc
-      run: sudo apt update && sudo apt install pandoc
+      run: > 
+        wget https://github.com/jgm/pandoc/releases/download/2.13/pandoc-2.13-1-amd64.deb &&
+        sudo dpkg -i pandoc-2.13-1-amd64.deb
+
     - name: use poetry
       uses: abatilo/actions-poetry@v2.0.0
       with:
