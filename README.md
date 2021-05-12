@@ -2,6 +2,12 @@
 
 This is a [Pandoc filter](https://pandoc.org/filters.html)! More specifically it is a filter that allows you to run Python code blocks in your markdown. It exists because I enjoy literate coding too much.
 
+## How to install
+
+```sh
+pip install pandoc-run-python
+```
+
 ## What does it do?
 
 
