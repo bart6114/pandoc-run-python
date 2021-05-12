@@ -6,6 +6,10 @@ import io
 import sys
 
 
+def sprint(*args: list, **kwargs: dict) -> None:
+    print(*args, **kwargs, file=sys.stderr)
+
+
 def py_env_exec() -> Callable:
     d = dict(locals(), **globals())
 
@@ -13,17 +17,26 @@ def py_env_exec() -> Callable:
         # capture output
         old_stdout = sys.stdout
         redirected_output = sys.stdout = io.StringIO()
-        exec(code_text, d, d)
+        code_lines = code_text.splitlines()
+
+        init_code = code_lines[0 : len(code_lines)]
+        finalize_code = code_lines[len(code_lines) - 1]
+
+        exec("\n".join(init_code), d, d)
+
+        try:
+            res = eval(finalize_code, d, d)
+            print(res)
+
+        except Exception as err:
+            sprint(err)
+            exec(finalize_code, d, d)
 
         # repair default stdout
         sys.stdout = old_stdout
         return redirected_output.getvalue()
 
     return partial_exec
-
-
-def sprint(*args: list, **kwargs: dict) -> None:
-    print(*args, **kwargs, file=sys.stderr)
 
 
 exec_env = py_env_exec()
@@ -48,7 +61,7 @@ def remove_elem(elem: pf.Element, doc: pf.Doc) -> pf.Element:
     return elements.Str("")
 
 
-def main(doc: pf.Doc=None) -> pf.Doc:
+def main(doc: pf.Doc = None) -> pf.Doc:
     return pf.run_filter(action, doc=doc)
 
 
