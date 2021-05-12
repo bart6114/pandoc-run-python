@@ -42,8 +42,8 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: 3.8
-      - name: echo tag
-        run: echo ${{ github.ref }}
+      - name: list tags
+        run: git tag
       - name: install pandoc
         run: >
           wget https://github.com/jgm/pandoc/releases/download/2.13/pandoc-2.13-1-amd64.deb &&

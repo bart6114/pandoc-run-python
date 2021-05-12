@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pandoc-run-python"
-version = "0.0.0"
+version = "0.1.4"
 description = "run python code blocks in markdown code"
 authors = ["Bart Smeets"]
 license = "MIT"
