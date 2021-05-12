@@ -6,7 +6,7 @@ on:
 
 jobs:
   tag-new-version:
-    name: Tag codebase automagically
+    name: auto-tag commit
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout Code
@@ -54,6 +54,8 @@ jobs:
           poetry-version: ${{ env.POETRY_VERSION }}
       - name: init
         run: poetry install
+      - name: build plugin
+        run: pip install poetry-dynamic-versioning
       - name: run tests
         run: poetry run pytest --cov=pandoc_run_python tests/
       - name: build
