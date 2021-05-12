@@ -19,7 +19,7 @@ jobs:
       with:
         poetry-version: ${{ env.POETRY_VERSION }}
     - name: run tests
-      run: poetry pytest
+      run: poetry run pytest --cov=pandoc_run_python tests/
     - name: build
       run: poetry build
     - name: Publish distribution 📦 to Test PyPI
