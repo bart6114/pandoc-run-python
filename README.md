@@ -2,7 +2,9 @@
 
 # pandoc-run-python
 
-This is a [Pandoc filter](https://pandoc.org/filters.html)! More specifically it is a filter that allows you to run Python code blocks in your markdown. It exists because I enjoy literate coding too much.
+This is a [Pandoc filter](https://pandoc.org/filters.html)! 
+
+More specifically it is a filter that allows you to run Python code blocks in your markdown and insert the output of them back into your markdown file. It exists because I enjoy literate programming too much.
 
 ## How to install
 
