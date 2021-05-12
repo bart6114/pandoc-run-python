@@ -18,6 +18,8 @@ jobs:
       - name: Git Version
         uses: codacy/git-version@2.2.0
         id: git-version
+        with:
+          release-branch: main
 
       - name: Create tag
         uses: actions/github-script@v3
