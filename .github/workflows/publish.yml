@@ -38,6 +38,8 @@ jobs:
       POETRY_VERSION: 1.1.6
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Set up Python 3.7
         uses: actions/setup-python@v1
         with:
