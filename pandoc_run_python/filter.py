@@ -5,8 +5,7 @@ from panflute import elements
 import io
 import sys
 
-from .mpl_backend import FigureContainer
-from .types import PythonOutput
+from .types import PythonOutput, FigureContainer
 
 
 def sprint(*args: list, **kwargs: dict) -> None:
@@ -20,7 +19,7 @@ try:
 
     matplotlib.use("module://pandoc_run_python.mpl_backend")
 
-except (ImportError, ModuleNotFoundError) as e:
+except ImportError as e:
     sprint("warning: matplotlib not available")
 
 
