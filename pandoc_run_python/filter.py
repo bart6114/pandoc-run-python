@@ -20,9 +20,8 @@ try:
 
     matplotlib.use("module://pandoc_run_python.mpl_backend")
 
-except ImportError:
+except (ImportError, ModuleNotFoundError) as e:
     sprint("warning: matplotlib not available")
-    pass
 
 
 def py_env_exec() -> Callable:
