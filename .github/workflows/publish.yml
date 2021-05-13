@@ -40,12 +40,10 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Set up Python 3.7 
+      - name: Set up Python 3.9
         uses: actions/setup-python@v1
         with:
-          python-version: 3.8
-      - name: list tags
-        run: git tag
+          python-version: 3.9
       - name: install pandoc
         run: >
           wget https://github.com/jgm/pandoc/releases/download/2.13/pandoc-2.13-1-amd64.deb &&
@@ -57,6 +55,8 @@ jobs:
           poetry-version: ${{ env.POETRY_VERSION }}
       - name: init
         run: poetry install
+      - name: install matplotlib
+        run: poetry add --dev matplotlib
       - name: build plugin
         run: pip install poetry-dynamic-versioning
       - name: run tests

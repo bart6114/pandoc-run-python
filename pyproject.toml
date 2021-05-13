@@ -5,9 +5,10 @@ description = "run python code blocks in markdown code"
 authors = ["Bart Smeets"]
 license = "MIT"
 readme = "README.md"
+homepage = "https://github.com/Bart6114/pandoc-run-python"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 panflute = "^2.0.5"
 
 [tool.poetry.dev-dependencies]
