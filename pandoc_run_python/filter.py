@@ -7,10 +7,12 @@ import sys
 
 
 def sprint(*args: list, **kwargs: dict) -> None:
+    """Print to stderr to avoid showing up as eval ouput."""
     print(*args, **kwargs, file=sys.stderr)
 
 
 def py_env_exec() -> Callable:
+    """Create env to execute code in"""
     d = dict(locals(), **globals())
 
     def partial_exec(code_text: str) -> str:
@@ -51,7 +53,10 @@ def action(elem: pf.Element, doc: pf.Doc) -> list:
         and "python-output" not in elem.classes
     ):
         eval_output = exec_env(elem.text)
-        return [elem, elements.CodeBlock(eval_output, classes=["python-output"])]
+        if len(eval_output) > 0:
+            return [elem, elements.CodeBlock(eval_output, classes=["python-output"])]
+        else:
+            return elem
     # remove previously generated output
     elif isinstance(elem, pf.CodeBlock) and "python-output" in elem.classes:
         return []

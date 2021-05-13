@@ -38,3 +38,11 @@ def test_eval_last_value():
     assert """``` {.python-output}
 3
 ```""" in md_altered
+
+def test_eval_no_output():
+    doc = doc_loader("no_output.md")
+    doc_altered = filter.main(doc)
+    md_altered = pf.convert_text(
+        doc_altered, input_format="panflute", output_format="markdown"
+    )
+    assert "python-output" not in md_altered
