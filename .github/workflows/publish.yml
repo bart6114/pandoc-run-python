@@ -40,10 +40,10 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Set up Python 3.7 
+      - name: Set up Python 3.9
         uses: actions/setup-python@v1
         with:
-          python-version: 3.8
+          python-version: 3.9
       - name: install pandoc
         run: >
           wget https://github.com/jgm/pandoc/releases/download/2.13/pandoc-2.13-1-amd64.deb &&
