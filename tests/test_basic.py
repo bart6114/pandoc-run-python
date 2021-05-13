@@ -19,6 +19,15 @@ def test_basic():
     )
     assert "``` {.python-output}" in md_altered
 
+def test_wellea():
+    doc = doc_loader("simple_wellea.md")
+    doc_altered = filter.main(doc)
+    md_altered = pf.convert_text(
+        doc_altered, input_format="panflute", output_format="markdown"
+    )
+    assert """``` {.python-output}
+4""" in md_altered
+
 
 def test_replace_old_output():
     doc = doc_loader("replace_old.md")

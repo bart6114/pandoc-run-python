@@ -19,7 +19,7 @@ try:
 
     matplotlib.use("module://pandoc_run_python.mpl_backend")
 
-except ImportError as e:
+except ImportError:
     sprint("warning: matplotlib not available")
 
 
@@ -33,30 +33,22 @@ def py_env_exec() -> Callable:
         old_stdout = sys.stdout
         redirected_output = sys.stdout = io.StringIO()
         code_lines = code_text.splitlines()
-
-        start_lines = code_lines[0 : max(0, len(code_lines) - 1)]
         final_line = code_lines[len(code_lines) - 1]
 
         # hacky tacky
-        # if we're indented on the last line we assume we should exec the whole block
-        if final_line.startswith(" ") or final_line.startswith("\t"):
+        # first we exec the whole block
+        exec("\n".join(code_lines), d, d)
 
-            exec("\n".join(code_lines), d, d)
+        # then we try to eval last line to see if it returns something
+        try:
+            res = eval(final_line, d, d)
+            if isinstance(res, FigureContainer):
+                po.fc = res
+            elif res is not None:
+                print(res)
 
-        # if not indented we're gonna try to eval the last line
-        else:
-            exec("\n".join(start_lines), d, d)
-
-            try:
-                res = eval(final_line, d, d)
-                if isinstance(res, FigureContainer):
-                    po.fc = res
-                elif res is not None:
-                    print(res)
-
-            except SyntaxError as err:
-                sprint(err)
-                exec(final_line, d, d)
+        except SyntaxError as err:
+            sprint(err)
 
         # repair default stdout
         sys.stdout = old_stdout
