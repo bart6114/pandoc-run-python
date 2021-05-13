@@ -1,4 +1,3 @@
-from dataclasses import dataclass, field
 import uuid
 import os
 import pathlib
@@ -6,15 +5,12 @@ import pathlib
 from matplotlib.backend_bases import Gcf, FigureManagerBase
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 
+from .types import FigureContainer
+
 FIGURES_DIR = "figures"
 
 
-@dataclass
-class FigureContainer:
-    figures: list[str] = field(default_factory=list)
-
-
-def assert_figure_dir_exists():
+def assert_figure_dir_exists() -> None:
     if not os.path.exists(FIGURES_DIR):
         os.makedirs(FIGURES_DIR)
 
@@ -24,14 +20,14 @@ def get_id() -> str:
 
 
 class FigureManager(FigureManagerBase):
-    def show(self):
+    def show(self) -> None:
         pass  # for now
 
 
 FigureCanvas = FigureCanvasAgg
 
 
-def show(*args, **kwargs):
+def show(*args: list, **kwargs: dict) -> FigureContainer:
     assert_figure_dir_exists()
     fc = FigureContainer()
     id = get_id()

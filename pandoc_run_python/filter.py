@@ -1,4 +1,3 @@
-from dataclasses import dataclass, field
 from typing import Callable
 import panflute as pf
 from panflute import elements
@@ -7,25 +6,12 @@ import io
 import sys
 
 from .mpl_backend import FigureContainer
+from .types import PythonOutput
 
 
 def sprint(*args: list, **kwargs: dict) -> None:
     """Print to stderr to avoid showing up as eval ouput."""
     print(*args, **kwargs, file=sys.stderr)
-
-
-@dataclass
-class PythonOutput:
-    fc: FigureContainer = field(default_factory=FigureContainer)
-    stdout: str = ""
-
-    @property
-    def has_stdout(self) -> bool:
-        return len(self.stdout) > 0
-
-    @property
-    def has_figures(self) -> bool:
-        return len(self.fc.figures) > 0
 
 
 # try to set up custom matplotlib backend
