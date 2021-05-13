@@ -8,6 +8,14 @@ This is a [Pandoc filter](https://pandoc.org/filters.html)!
 
 More specifically it is a filter that allows you to run Python code blocks in your markdown and insert the output of them back into your markdown file. It exists because I enjoy literate programming too much.
 
+It supports capturing the following output of Python code blocks:
+- anything printed to `stdout`
+- matplotlib-based figures
+
+## Warning 🚨
+
+Make sure that you trust the Python code in your markdown files, they will be executed as-is. A cell with content like `os.system("sudo rm -rf /")` would be painful.
+
 ## How to install
 
 ```sh
