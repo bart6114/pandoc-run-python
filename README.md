@@ -85,3 +85,16 @@ print("A rocket chip!")
 A rocket chip!
 ```
 ````
+
+## Auto-formatting
+
+By default, `black` is run on all code chunks denoted with `python` also those that do not have the `run` class.
+
+## Code chunk configuration
+
+This filter runs on all code chunks that has at least the `python` and `run` class.
+
+The following classes are used to determine filter logic:
+
+- `python` and `run`: evaluate code and insert output in a new codeblock / image below the original `python` codeblock
+- `no-black`: skip running of the black formatter on python code chunks

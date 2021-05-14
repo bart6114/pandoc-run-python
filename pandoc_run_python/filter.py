@@ -74,6 +74,15 @@ exec_env = py_env_exec()
 
 
 def action(elem: pf.Element, doc: pf.Doc) -> list:
+    # preprocess code formatting
+    if (
+        isinstance(elem, pf.CodeBlock)
+        and "python" in elem.classes
+        and "no-black" not in elem.classes
+    ):
+        elem.text = code_formatter(elem.text)
+        elem.classes.append("black-d")
+
     # run python code chunks
     if (
         isinstance(elem, pf.CodeBlock)
@@ -82,10 +91,7 @@ def action(elem: pf.Element, doc: pf.Doc) -> list:
         and "python-output" not in elem.classes
     ):
         eval_output = exec_env(elem.text)
-        formatted_elem = elements.CodeBlock(
-            code_formatter(elem.text), classes=["python", "run", "blacked"]
-        )
-        collector = [formatted_elem]
+        collector = [elem]
         if eval_output.has_stdout:
             collector.append(
                 elements.CodeBlock(eval_output.stdout, classes=["python-output"])
