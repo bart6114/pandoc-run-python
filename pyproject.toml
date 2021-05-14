@@ -10,10 +10,10 @@ homepage = "https://github.com/Bart6114/pandoc-run-python"
 [tool.poetry.dependencies]
 python = "^3.9"
 panflute = "^2.0.5"
+black = "^21.5b1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.4"
-black = "^21.5b1"
 pytest-cov = "^2.11.1"
 flake8-annotations = "^2.6.2"
 

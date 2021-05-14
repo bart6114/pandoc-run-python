@@ -1,9 +1,10 @@
-from typing import Callable
-import panflute as pf
-from panflute import elements
-
 import io
 import sys
+from typing import Callable
+
+import panflute as pf
+from panflute import elements
+import black
 
 from .types import PythonOutput, FigureContainer
 
@@ -21,6 +22,15 @@ try:
 
 except ImportError:
     sprint("warning: matplotlib not available")
+
+
+def code_formatter(code_text: str) -> str:
+    try:
+        res = black.format_str(code_text, mode=black.FileMode())
+        return res
+    except Exception as err:
+        sprint(f"warning: cannot run black formatting - {err}:\n{str}")
+        return str
 
 
 def py_env_exec() -> Callable:
@@ -48,7 +58,9 @@ def py_env_exec() -> Callable:
                 print(res)
 
         except SyntaxError as err:
-            sprint(err)
+            # we assume that this is was just part of the full codeblock
+            # and not meant to be output'd
+            pass
 
         # repair default stdout
         sys.stdout = old_stdout
@@ -70,7 +82,10 @@ def action(elem: pf.Element, doc: pf.Doc) -> list:
         and "python-output" not in elem.classes
     ):
         eval_output = exec_env(elem.text)
-        collector = [elem]
+        formatted_elem = elements.CodeBlock(
+            code_formatter(elem.text), classes=["python", "run", "blacked"]
+        )
+        collector = [formatted_elem]
         if eval_output.has_stdout:
             collector.append(
                 elements.CodeBlock(eval_output.stdout, classes=["python-output"])
