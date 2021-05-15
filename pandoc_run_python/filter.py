@@ -81,7 +81,8 @@ def action(elem: pf.Element, doc: pf.Doc) -> list:
         and "no-black" not in elem.classes
     ):
         elem.text = code_formatter(elem.text)
-        elem.classes.append("black-d")
+        if not "black-d" in elem.classes:
+            elem.classes.append("black-d")
 
     # run python code chunks
     if (
