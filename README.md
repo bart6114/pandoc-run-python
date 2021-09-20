@@ -1,6 +1,6 @@
 ![PyPI](https://img.shields.io/pypi/v/pandoc-run-python)
 ![CICD](https://github.com/Bart6114/pandoc-run-python/actions/workflows/publish.yml/badge.svg)
-
+[![Downloads](https://pepy.tech/badge/pandoc-run-python)](https://pepy.tech/project/pandoc-run-python)
 
 # pandoc-run-python
 
