@@ -50,17 +50,18 @@ def py_env_exec() -> Callable:
         exec("\n".join(code_lines), d, d)
 
         # then we try to eval last line to see if it returns something
-        try:
-            res = eval(final_line, d, d)
-            if isinstance(res, FigureContainer):
-                po.fc = res
-            elif res is not None:
-                print(res)
+        if 'print(' not in final_line:  # more hacky tacky. avoid double printing.
+            try:
+                res = eval(final_line, d, d)
+                if isinstance(res, FigureContainer):
+                    po.fc = res
+                elif res is not None:
+                    print(res)
 
-        except SyntaxError as err:
-            # we assume that this is was just part of the full codeblock
-            # and not meant to be output'd
-            pass
+            except SyntaxError as err:
+                # we assume that this is just part of the full codeblock
+                # and not meant to be output'd
+                pass
 
         # repair default stdout
         sys.stdout = old_stdout
@@ -76,26 +77,26 @@ exec_env = py_env_exec()
 def action(elem: pf.Element, doc: pf.Doc) -> list:
     # preprocess code formatting
     if (
-        isinstance(elem, pf.CodeBlock)
-        and "python" in elem.classes
-        and "no-black" not in elem.classes
+            isinstance(elem, pf.CodeBlock)
+            and "python" in elem.classes
+            and "no-black" not in elem.classes
     ):
         elem.text = code_formatter(elem.text)
-        if not "black-d" in elem.classes:
+        if "black-d" not in elem.classes:
             elem.classes.append("black-d")
 
     # run python code chunks
     if (
-        isinstance(elem, pf.CodeBlock)
-        and "python" in elem.classes
-        and "run" in elem.classes
-        and "python-output" not in elem.classes
+            isinstance(elem, pf.CodeBlock)
+            and "python" in elem.classes
+            and "run" in elem.classes
+            and "python-output" not in elem.classes
     ):
         eval_output = exec_env(elem.text)
         collector = [elem]
         if eval_output.has_stdout:
             collector.append(
-                elements.CodeBlock(eval_output.stdout, classes=["python-output"])
+                elements.CodeBlock(eval_output.stdout, classes=["{.python-output}"])
             )
         if eval_output.has_figures:
             for fig in eval_output.fc.figures:

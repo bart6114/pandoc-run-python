@@ -1,7 +1,6 @@
 from pandoc_run_python.filter import code_formatter
 
 
-
 def test_formatter():
     as_is = """
     a = {1:0,
