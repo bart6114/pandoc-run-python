@@ -17,7 +17,13 @@ def test_basic():
     md_altered = pf.convert_text(
         doc_altered, input_format="panflute", output_format="markdown"
     )
-    assert "``` {.python-output}" in md_altered
+    assert """
+``` {.python-output}
+Hello World
+1
+2
+3
+```""" in md_altered
 
 def test_wellea():
     doc = doc_loader("simple_wellea.md")
