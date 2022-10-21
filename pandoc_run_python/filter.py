@@ -105,11 +105,15 @@ def action(elem: pf.Element, doc: pf.Doc) -> list:
         collector = [elem]
         if eval_output.has_stdout:
             collector.append(
-                elements.CodeBlock(eval_output.stdout, classes=["python-output"])
+                elements.CodeBlock(eval_output.stdout, classes=["{.python-output}"])
             )
         if eval_output.has_figures:
             for fig in eval_output.fc.figures:
                 collector.append(elements.Para(elements.Image(url=str(fig))))
+
+        # flag to delete original code from markdown - only the results remain
+        if "del" in elem.classes:
+            collector.remove(elem)
 
         return collector
     # remove previously generated output
