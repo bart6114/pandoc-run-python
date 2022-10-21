@@ -34,7 +34,10 @@ def code_formatter(code_text: str) -> str:
 
 
 def py_env_exec() -> Callable:
-    """Create env to execute code in"""
+    """Create env to execute code in
+
+    A pragmatic approach to code exec... Using an interactive py shell would be way more
+    robust but require much more dependencies. This seems to work so far."""
     d = dict(locals(), **globals())
 
     def partial_exec(code_text: str) -> PythonOutput:
@@ -47,10 +50,16 @@ def py_env_exec() -> Callable:
 
         # hacky tacky
         # first we exec the whole block
-        exec("\n".join(code_lines), d, d)
+        # if it's more than one line
+        if len(code_lines) > 1:
+            exec("\n".join(code_lines), d, d)
 
         # then we try to eval last line to see if it returns something
-        if 'print(' not in final_line:  # more hacky tacky. avoid double printing.
+        # we ignore stuff that is indented
+        # i know this feels very non-robust
+        # but it seems to get the job done :shrug:
+
+        if not final_line.startswith((" ", "\t")):
             try:
                 res = eval(final_line, d, d)
                 if isinstance(res, FigureContainer):
@@ -58,8 +67,8 @@ def py_env_exec() -> Callable:
                 elif res is not None:
                     print(res)
 
-            except SyntaxError as err:
-                # we assume that this is just part of the full codeblock
+            except SyntaxError:
+                # we assume that this is was just part of the full codeblock
                 # and not meant to be output'd
                 pass
 
@@ -77,9 +86,9 @@ exec_env = py_env_exec()
 def action(elem: pf.Element, doc: pf.Doc) -> list:
     # preprocess code formatting
     if (
-            isinstance(elem, pf.CodeBlock)
-            and "python" in elem.classes
-            and "no-black" not in elem.classes
+        isinstance(elem, pf.CodeBlock)
+        and "python" in elem.classes
+        and "no-black" not in elem.classes
     ):
         elem.text = code_formatter(elem.text)
         if "black-d" not in elem.classes:
@@ -87,16 +96,16 @@ def action(elem: pf.Element, doc: pf.Doc) -> list:
 
     # run python code chunks
     if (
-            isinstance(elem, pf.CodeBlock)
-            and "python" in elem.classes
-            and "run" in elem.classes
-            and "python-output" not in elem.classes
+        isinstance(elem, pf.CodeBlock)
+        and "python" in elem.classes
+        and "run" in elem.classes
+        and "python-output" not in elem.classes
     ):
         eval_output = exec_env(elem.text)
         collector = [elem]
         if eval_output.has_stdout:
             collector.append(
-                elements.CodeBlock(eval_output.stdout, classes=["{.python-output}"])
+                elements.CodeBlock(eval_output.stdout, classes=["python-output"])
             )
         if eval_output.has_figures:
             for fig in eval_output.fc.figures:

@@ -16,7 +16,31 @@ def test_basic():
     md_altered = pf.convert_text(
         doc_altered, input_format="panflute", output_format="markdown"
     )
-    assert "``` {.python-output}" in md_altered
+    assert (
+        """
+``` {.python-output}
+Hello World
+1
+2
+3
+```"""
+        in md_altered
+    )
+
+
+def test_oneline():
+    doc = doc_loader("oneline.md")
+    doc_altered = filter.main(doc)
+    md_altered = pf.convert_text(
+        doc_altered, input_format="panflute", output_format="markdown"
+    )
+    assert (
+        """
+``` {.python-output}
+Hello World
+```"""
+        in md_altered
+    )
 
 
 def test_github_example():
@@ -25,7 +49,9 @@ def test_github_example():
     md_altered = pf.convert_text(
         doc_altered, input_format="panflute", output_format="markdown"
     )
-    assert md_altered == """## What is fast, loud and crunchy?
+    assert (
+        md_altered
+        == """## What is fast, loud and crunchy?
 
 ``` {.python .run .black-d}
 print("A rocket chip!")
@@ -34,6 +60,7 @@ print("A rocket chip!")
 ``` {.python-output}
 A rocket chip!
 ```"""
+    )
 
 
 def test_wellea():
@@ -42,8 +69,11 @@ def test_wellea():
     md_altered = pf.convert_text(
         doc_altered, input_format="panflute", output_format="markdown"
     )
-    assert """``` {.python-output}
-4""" in md_altered
+    assert (
+        """``` {.python-output}
+4"""
+        in md_altered
+    )
 
 
 def test_replace_old_output():
@@ -62,9 +92,12 @@ def test_eval_last_value():
     md_altered = pf.convert_text(
         doc_altered, input_format="panflute", output_format="markdown"
     )
-    assert """``` {.python-output}
+    assert (
+        """``` {.python-output}
 3
-```""" in md_altered
+```"""
+        in md_altered
+    )
 
 
 def test_eval_no_output():
