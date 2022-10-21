@@ -57,8 +57,6 @@ jobs:
         run: poetry install
       - name: install matplotlib
         run: poetry add --dev matplotlib
-      - name: build plugin
-        run: pip install poetry-dynamic-versioning
       - name: run tests
         run: poetry run pytest --cov=pandoc_run_python tests/
       - name: lint
