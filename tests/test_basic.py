@@ -29,6 +29,21 @@ Hello World
     )
 
 
+def test_oneline():
+    doc = doc_loader("oneline.md")
+    doc_altered = filter.main(doc)
+    md_altered = pf.convert_text(
+        doc_altered, input_format="panflute", output_format="markdown"
+    )
+    assert (
+        """
+``` {.python-output}
+Hello World
+```"""
+        in md_altered
+    )
+
+
 def test_wellea():
     doc = doc_loader("simple_wellea.md")
     doc_altered = filter.main(doc)

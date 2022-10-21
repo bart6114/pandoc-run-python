@@ -50,12 +50,15 @@ def py_env_exec() -> Callable:
 
         # hacky tacky
         # first we exec the whole block
-        exec("\n".join(code_lines), d, d)
+        # if it's more than one line
+        if len(code_lines) > 1:
+            exec("\n".join(code_lines), d, d)
 
         # then we try to eval last line to see if it returns something
         # we ignore stuff that is indented
         # i know this feels very non-robust
         # but it seems to get the job done :shrug:
+
         if not final_line.startswith((" ", "\t")):
             try:
                 res = eval(final_line, d, d)
