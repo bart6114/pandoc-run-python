@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pandoc-run-python"
-version = "0.1.4"
+version = "0.0.0"
 description = "run python code blocks in markdown code"
 authors = ["Bart Smeets"]
 license = "MIT"
@@ -21,6 +21,7 @@ ruff = "^0.0.81"
 
 [tool.poetry-dynamic-versioning]
 enable = true
+vcs = "git"
 pattern = "^(?P<base>\\d+\\.\\d+\\.\\d+)"
 
 [tool.poetry.scripts]
