@@ -35,7 +35,7 @@ jobs:
     name: Test & build package
     runs-on: ubuntu-18.04
     env:
-      POETRY_VERSION: 1.1.6
+      POETRY_VERSION: 1.2.2
     steps:
       - uses: actions/checkout@v2
         with:
@@ -55,10 +55,8 @@ jobs:
           poetry-version: ${{ env.POETRY_VERSION }}
       - name: init
         run: poetry install
-      - name: install matplotlib
-        run: poetry add --dev matplotlib
-      - name: build plugin
-        run: pip install poetry-dynamic-versioning
+      - name: add poetry versioning
+        run: poetry self add "poetry-dynamic-versioning[plugin]"
       - name: run tests
         run: poetry run pytest --cov=pandoc_run_python tests/
       - name: lint
