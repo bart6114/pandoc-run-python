@@ -105,7 +105,7 @@ def action(elem: pf.Element, doc: pf.Doc) -> list:
         collector = [elem]
         if eval_output.has_stdout:
             collector.append(
-                elements.CodeBlock(eval_output.stdout, classes=["{.python-output}"])
+                elements.CodeBlock(eval_output.stdout, classes=["python-output"])
             )
         if eval_output.has_figures:
             for fig in eval_output.fc.figures:
