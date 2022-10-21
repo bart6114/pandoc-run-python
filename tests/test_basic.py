@@ -1,7 +1,6 @@
 import panflute as pf
 from pathlib import Path
 from pandoc_run_python import filter
-import io
 
 
 def doc_loader(fn: str) -> str:

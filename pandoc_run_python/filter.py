@@ -67,7 +67,7 @@ def py_env_exec() -> Callable:
                 elif res is not None:
                     print(res)
 
-            except SyntaxError as err:
+            except SyntaxError:
                 # we assume that this is was just part of the full codeblock
                 # and not meant to be output'd
                 pass
@@ -91,7 +91,7 @@ def action(elem: pf.Element, doc: pf.Doc) -> list:
         and "no-black" not in elem.classes
     ):
         elem.text = code_formatter(elem.text)
-        if not "black-d" in elem.classes:
+        if "black-d" not in elem.classes:
             elem.classes.append("black-d")
 
     # run python code chunks

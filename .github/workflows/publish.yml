@@ -61,6 +61,10 @@ jobs:
         run: pip install poetry-dynamic-versioning
       - name: run tests
         run: poetry run pytest --cov=pandoc_run_python tests/
+      - name: lint
+        run: poetry run black .
+      - name: woof woof
+        run: poetry run ruff .
       - name: build
         run: poetry build
       - uses: actions/upload-artifact@v2
