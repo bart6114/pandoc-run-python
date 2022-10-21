@@ -34,7 +34,10 @@ def code_formatter(code_text: str) -> str:
 
 
 def py_env_exec() -> Callable:
-    """Create env to execute code in"""
+    """Create env to execute code in
+
+    A pragmatic approach to code exec... Using an interactive py shell would be way more
+    robust but require much more dependencies. This seems to work so far."""
     d = dict(locals(), **globals())
 
     def partial_exec(code_text: str) -> PythonOutput:
@@ -50,17 +53,21 @@ def py_env_exec() -> Callable:
         exec("\n".join(code_lines), d, d)
 
         # then we try to eval last line to see if it returns something
-        try:
-            res = eval(final_line, d, d)
-            if isinstance(res, FigureContainer):
-                po.fc = res
-            elif res is not None:
-                print(res)
+        # we ignore stuff that is indented
+        # i know this feels very non-robust
+        # but it seems to get the job done :shrug:
+        if not final_line.startswith((" ", "\t")):
+            try:
+                res = eval(final_line, d, d)
+                if isinstance(res, FigureContainer):
+                    po.fc = res
+                elif res is not None:
+                    print(res)
 
-        except SyntaxError as err:
-            # we assume that this is was just part of the full codeblock
-            # and not meant to be output'd
-            pass
+            except SyntaxError as err:
+                # we assume that this is was just part of the full codeblock
+                # and not meant to be output'd
+                pass
 
         # repair default stdout
         sys.stdout = old_stdout

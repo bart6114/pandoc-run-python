@@ -17,13 +17,17 @@ def test_basic():
     md_altered = pf.convert_text(
         doc_altered, input_format="panflute", output_format="markdown"
     )
-    assert """
+    assert (
+        """
 ``` {.python-output}
 Hello World
 1
 2
 3
-```""" in md_altered
+```"""
+        in md_altered
+    )
+
 
 def test_wellea():
     doc = doc_loader("simple_wellea.md")
@@ -31,8 +35,11 @@ def test_wellea():
     md_altered = pf.convert_text(
         doc_altered, input_format="panflute", output_format="markdown"
     )
-    assert """``` {.python-output}
-4""" in md_altered
+    assert (
+        """``` {.python-output}
+4"""
+        in md_altered
+    )
 
 
 def test_replace_old_output():
@@ -44,15 +51,20 @@ def test_replace_old_output():
     assert "``` {.python-output}" in md_altered
     assert "WILL BE REPLACED" not in md_altered
 
+
 def test_eval_last_value():
     doc = doc_loader("eval_last.md")
     doc_altered = filter.main(doc)
     md_altered = pf.convert_text(
         doc_altered, input_format="panflute", output_format="markdown"
     )
-    assert """``` {.python-output}
+    assert (
+        """``` {.python-output}
 3
-```""" in md_altered
+```"""
+        in md_altered
+    )
+
 
 def test_eval_no_output():
     doc = doc_loader("no_output.md")
