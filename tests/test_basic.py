@@ -1,7 +1,6 @@
 import panflute as pf
 from pathlib import Path
 from pandoc_run_python import filter
-import io
 
 
 def doc_loader(fn: str) -> str:
@@ -18,6 +17,24 @@ def test_basic():
         doc_altered, input_format="panflute", output_format="markdown"
     )
     assert "``` {.python-output}" in md_altered
+
+
+def test_github_example():
+    doc = doc_loader("github_example.md")
+    doc_altered = filter.main(doc)
+    md_altered = pf.convert_text(
+        doc_altered, input_format="panflute", output_format="markdown"
+    )
+    assert md_altered == """## What is fast, loud and crunchy?
+
+``` {.python .run .black-d}
+print("A rocket chip!")
+```
+
+``` {.python-output}
+A rocket chip!
+```"""
+
 
 def test_wellea():
     doc = doc_loader("simple_wellea.md")
@@ -38,6 +55,7 @@ def test_replace_old_output():
     assert "``` {.python-output}" in md_altered
     assert "WILL BE REPLACED" not in md_altered
 
+
 def test_eval_last_value():
     doc = doc_loader("eval_last.md")
     doc_altered = filter.main(doc)
@@ -47,6 +65,7 @@ def test_eval_last_value():
     assert """``` {.python-output}
 3
 ```""" in md_altered
+
 
 def test_eval_no_output():
     doc = doc_loader("no_output.md")

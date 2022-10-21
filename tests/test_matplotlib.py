@@ -1,7 +1,6 @@
 import panflute as pf
 from pathlib import Path
 from pandoc_run_python import filter
-import io
 
 
 def doc_loader(fn: str) -> str:
@@ -18,4 +17,3 @@ def test_image_insert():
         doc_altered, input_format="panflute", output_format="markdown"
     )
     assert "![](figures/" in md_altered
-

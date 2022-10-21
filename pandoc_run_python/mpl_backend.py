@@ -34,8 +34,8 @@ def show(*args: list, **kwargs: dict) -> FigureContainer:
     for num, figmanager in enumerate(Gcf.get_all_fig_managers()):
         fn = (
             pathlib.Path(FIGURES_DIR, f"figure_{id}_{num}.png")
-            .resolve()
-            .relative_to(pathlib.Path.cwd())
+                .resolve()
+                .relative_to(pathlib.Path.cwd())
         )
         figmanager.canvas.figure.savefig(fn)
         fc.figures.append(fn)
