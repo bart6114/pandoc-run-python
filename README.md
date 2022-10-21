@@ -14,7 +14,7 @@ It supports capturing the following output of Python code blocks:
 
 ## Warning 🚨
 
-Make sure that you trust the Python code in your markdown files, they will be executed as-is. A cell with content like `os.system("sudo rm -rf /")` would be painful.
+Make sure that you trust the Python code in your markdown files, they will be executed as-is. A cell with content like `os.system("sudo rm -rf /")` would be painful. In other words, if at any point in the future I send you a markdown file called `money_factory.md` you should NOT run it.
 
 ## How to install
 
