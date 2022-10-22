@@ -1,5 +1,7 @@
-import panflute as pf
 from pathlib import Path
+
+import panflute as pf
+
 from pandoc_run_python import filter
 
 

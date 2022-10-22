@@ -4,14 +4,27 @@ from typing import Callable
 
 import panflute as pf
 from panflute import elements
-import black
 
-from .types import PythonOutput, FigureContainer
+from .types import FigureContainer, PythonOutput
+
+BLACK_AVAILABLE = False
 
 
 def sprint(*args: list, **kwargs: dict) -> None:
     """Print to stderr to avoid showing up as eval ouput."""
     print(*args, **kwargs, file=sys.stderr)
+
+
+try:
+    import black
+
+    BLACK_AVAILABLE = True
+
+except ImportError:
+    sprint(
+        "WARN: black not available and will not apply code formatting,"
+        + f"consider reinstalling with extras {__name__}[black]"
+    )
 
 
 # try to set up custom matplotlib backend
@@ -84,9 +97,10 @@ exec_env = py_env_exec()
 
 
 def action(elem: pf.Element, doc: pf.Doc) -> list:
-    # preprocess code formatting
+    # apply code formatting using black
     if (
-        isinstance(elem, pf.CodeBlock)
+        BLACK_AVAILABLE
+        and isinstance(elem, pf.CodeBlock)
         and "python" in elem.classes
         and "no-black" not in elem.classes
     ):

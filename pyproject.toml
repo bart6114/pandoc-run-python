@@ -1,32 +1,40 @@
 [tool.poetry]
-name = "pandoc-run-python"
-version = "0.0.0"
-description = "run python code blocks in markdown code"
 authors = ["Bart Smeets"]
-license = "MIT"
-readme = "README.md"
+description = "run python code blocks in markdown code"
 homepage = "https://github.com/Bart6114/pandoc-run-python"
+license = "MIT"
+name = "pandoc-run-python"
+readme = "README.md"
+version = "0.0.0"
 
 [tool.poetry.dependencies]
-python = "^3.9"
 panflute = "^2.0.5"
+python = "^3.9"
+
+## optional deps
+black = {version = "^22.10.0", optional = true}
+
+[tool.poetry.extras]
+black = ["black"]
 
 [tool.poetry.dev-dependencies]
-pytest = "^6.2.4"
-pytest-cov = "^2.11.1"
 flake8-annotations = "^2.6.2"
 matplotlib = "^3.6.1"
-black = "^22.10.0"
+pytest = "^6.2.4"
+pytest-cov = "^2.11.1"
 ruff = "^0.0.81"
+
+[tool.poetry.group.dev.dependencies]
+isort = "^5.10.1"
 
 [tool.poetry-dynamic-versioning]
 enable = true
-vcs = "git"
 pattern = "^(?P<base>\\d+\\.\\d+\\.\\d+)"
+vcs = "git"
 
 [tool.poetry.scripts]
 pandoc-run-python = "pandoc_run_python.filter:main"
 
 [build-system]
-requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
 build-backend = "poetry_dynamic_versioning.backend"
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
