@@ -22,6 +22,8 @@ Make sure that you trust the Python code in your markdown files, they will be ex
 pip install pandoc-run-python
 ```
 
+Also check out the notes on [auto-formatting](#auto-formatting) for information on how to install `black` as a dependency.
+
 ## What does it do?
 
 
@@ -88,7 +90,10 @@ A rocket chip!
 
 ## Auto-formatting
 
-By default, `black` is run on all code chunks denoted with `python` also those that do not have the `run` class.
+By default, `black` is run on all code chunks that have the `python` class, also those that do not have the `run` class.
+You can avoid this auto-formatting behaviour by adding the `no-black` class to the code chunk.
+
+However, `black` is an optional dependency. If it cannot be imported code formatting will be skipped. You can install this package also together with `black` by running `pip install pandoc-run-python[black]`.
 
 ## Code chunk configuration
 

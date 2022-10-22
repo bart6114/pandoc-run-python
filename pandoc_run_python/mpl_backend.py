@@ -1,8 +1,8 @@
-import uuid
 import os
 import pathlib
+import uuid
 
-from matplotlib.backend_bases import Gcf, FigureManagerBase
+from matplotlib.backend_bases import FigureManagerBase, Gcf
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 
 from .types import FigureContainer
